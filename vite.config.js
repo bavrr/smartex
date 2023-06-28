@@ -6,5 +6,3 @@ export default defineConfig({
   plugins: [vue()],
   base: import.meta.env.MODE === 'production' ? '/smartex/' : '/'
 })
-
-console.log(import.meta)
