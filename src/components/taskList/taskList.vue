@@ -58,7 +58,7 @@ export default {
      */
     const taskList = ref(structuredClone(toRaw(props.modelValue)));
 
-    watch(() => props.modelValue, (newTaskList) => {
+    watch(props.modelValue, (newTaskList) => {
       taskList.value = structuredClone(toRaw(newTaskList));
     });
 
