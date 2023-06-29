@@ -3,8 +3,7 @@
     <div class="task-list__empty" v-if="isEmpty">
       {{ EMPTY_TEXT }}
     </div>
-    <div v-else>
-
+    <template v-else>
       <div class="task-list__row">
         <div v-for="column in columns" :key="column.name" class="task-list__column">
           <div>{{ column.name }}</div>  
@@ -12,13 +11,13 @@
       </div>
 
       <template v-for="task in taskList" :key="task.id">
-        <div class="task-list__row">
+        <div class="task-list__row task-list__row--body">
           <div class="task-list__column">
             {{ task.id }}
           </div>
 
           <div class="task-list__column">
-            <input v-model="task.name">
+            <input class="task-list__input" v-model="task.name">
           </div>
 
           <div class="task-list__column">
@@ -26,7 +25,7 @@
           </div>
         </div>
       </template>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -108,6 +107,13 @@ export default {
 </script>
 
 <style>
+.task-list {
+  color: var(--text-color);
+  font-weight: 400;
+  font-size: 18px;
+}
+
+
 .task-list__empty {
   font-size: 24px;
   display: flex;
@@ -117,13 +123,26 @@ export default {
 }
 
 .task-list__row {
-  margin: 20px 0;
+  padding: 20px 0;
   display: flex;
+}
+
+.task-list__row--body:nth-child(2n + 1) {
+  background-color: #111827;
 }
 
 .task-list__column {
   width: 33%;
   text-align: center;
+}
+
+.task-list__input {
+  background-color: #111827;
+  height: 20px;
+  padding: 8px 12px;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
 }
 
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="task-page">
-    <header class="header">
-      <h1 class="header__title">{{ HEADER_TITLE }}</h1>
-      <button class='header__action' @click="createTask">
+    <header class="task-page__header">
+      <h1>{{ HEADER_TITLE }}</h1>
+      <button class='task-page__action' @click="createTask">
         {{ HEADER_ACTION_TEXT }}
       </button>
     </header>
@@ -63,21 +63,49 @@ export default {
 </script>
 
 <style>
-.task-page {
-  width: 100%;
+* {
+  box-sizing:content-box;
 }
 
-.header {
+body, html {
+  margin: 0;
+}
+
+:root {
+  background-color: #1f2937;
+
+  --border-color: #6b7280;
+  --text-color: #fff;
+}
+
+.task-page {
+  box-sizing: content-box;
+  max-width: 1200px;
+  padding: 0 20px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.task-page__header {
   display: flex;
   justify-content: space-between;
-  margin: 0 10px;
+  color: var(--text-color);
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.header__action {
-  height: 40px;
+.task-page__action {
+  height: 20px;
   padding: 10px 5px;
   align-self: center;
+  background-color: #3b82f6;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-color);
+  cursor: pointer;
 }
 
-
+.task-page__action:hover {
+  background-color: #2563eb;
+}
 </style>

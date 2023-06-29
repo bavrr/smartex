@@ -1,5 +1,17 @@
 <template>
-  <DatePicker v-model.range="dateWrapper" :disabled-dates="disabledDatesForCurrentDatepicker" />
+  <DatePicker class="datepicker" v-model.range="dateWrapper" :disabled-dates="disabledDatesForCurrentDatepicker">
+    <template #default="{ togglePopover }">
+      <div class="datepicker__selected-dates" v-if="isSelectedDateRange">
+        <span>{{ `${formatDate(dateWrapper.start)} — ${formatDate(dateWrapper.end)}` }}</span>
+      </div>
+      <button
+        class="datepicker__action"
+        @click="togglePopover"
+      >
+        {{ buttonText }}
+      </button>
+    </template>
+  </DatePicker>
 </template>
 
 <script>
@@ -51,10 +63,52 @@ export default {
        return shallowCopy;
     })
 
+    const isSelectedDateRange = computed(() => {
+      return dateWrapper.value.start !== null && dateWrapper.value.end !== null;
+    })
+
+    const buttonText = computed(() => {
+      return isSelectedDateRange.value ? 'Изменить дату занятия' : 'Выбрать дату занятия';
+    })
+
+    const formatDate = (date) => {
+      let dateCopy = date;
+      
+      if (date instanceof Date === false) {
+        dateCopy = new Date(date);
+      }
+
+      return `${dateCopy.getDate()}/${dateCopy.getMonth() + 1}/${dateCopy.getFullYear()}`
+    }
+
     return {
       dateWrapper,
-      disabledDatesForCurrentDatepicker
+      disabledDatesForCurrentDatepicker,
+      isSelectedDateRange,
+      buttonText,
+      formatDate
     }
   }
 }
 </script>
+
+<style>
+.datepicker__selected-dates {
+  margin-bottom: 8px;
+}
+
+.datepicker__action {
+  height: 20px;
+  padding: 10px 5px;
+  align-self: center;
+  background-color: #3b82f6;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.datepicker__action:hover {
+  background-color: #2563eb;
+}
+</style>
